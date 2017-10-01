@@ -1,18 +1,18 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      LASA Schedules
-    </ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>LASA Schedules</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-header>
-      A header
-    </ion-card-header>
-    <ion-card-content>
-      Some content
-    </ion-card-content>
-  </ion-card>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-item>
+    <ion-label>Current Time</ion-label>
+    <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="currentTime"></ion-datetime>
+  </ion-item>
 </ion-content>
