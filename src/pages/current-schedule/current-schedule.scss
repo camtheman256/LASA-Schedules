@@ -1,0 +1,13 @@
+page-current-schedule {
+  ion-content {
+    -webkit-filter: grayscale(100%) blur(2px);
+    background-image: url("/assets/LBJLogo.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+
+    &::before {
+      opacity: .4;
+    }
+  }
+}
