@@ -20,11 +20,9 @@
 
 
 <ion-content padding>
-  <div [ngSwitch]="schedPicker">
-    <div *ngFor="let schedule of schedules">
-      <ion-list *ngSwitchCase="'{{ schedule.name }}'">
-        {{ schedule.name }}
-      </ion-list>
-    </div>
+  <div [ngSwitch]="schedPicker" *ngFor="let schedule of schedules">
+    <ion-list *ngSwitchCase="'{{ schedule.name }}'">
+      
+    </ion-list>
   </div>
 </ion-content>
