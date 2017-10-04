@@ -19,10 +19,9 @@ export class CurrentSchedulePage {
   public currentTime: string;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.currentTime = "0";
-    setInterval(function(){
+    setInterval(() => {
       let dateObj = new Date();
       this.currentTime = dateObj.toLocaleTimeString();
-      document.getElementById("current-time").innerHTML = this.currentTime;
     }, 1000);
 
   }
