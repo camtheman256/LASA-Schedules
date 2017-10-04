@@ -5,6 +5,7 @@ import { NavController } from 'ionic-angular';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
 export class HomePage {
   currentTime: string;
   constructor(public navCtrl: NavController) {

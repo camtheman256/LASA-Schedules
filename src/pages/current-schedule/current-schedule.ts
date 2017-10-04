@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+
 /**
  * Generated class for the CurrentSchedulePage page.
  *
@@ -13,9 +14,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-current-schedule',
   templateUrl: 'current-schedule.html',
 })
-export class CurrentSchedulePage {
 
+export class CurrentSchedulePage {
+  public currentTime: string;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.currentTime = "0";
+    setInterval(function(){
+      let dateObj = new Date();
+      this.currentTime = dateObj.toLocaleTimeString();
+      document.getElementById("current-time").innerHTML = this.currentTime;
+    }, 1000);
+
   }
 
   ionViewDidLoad() {
