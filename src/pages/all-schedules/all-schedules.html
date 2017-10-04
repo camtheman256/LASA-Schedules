@@ -8,6 +8,11 @@
 
   <ion-navbar color="primary">
     <ion-title>All Schedules</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="popoverUp($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
   <ion-toolbar padding>
     <ion-segment [(ngModel)]="schedPicker">
@@ -21,8 +26,12 @@
 
 <ion-content padding>
   <div [ngSwitch]="schedPicker" *ngFor="let schedule of schedules">
-    <ion-list *ngSwitchCase="'{{ schedule.name }}'">
-      
+    <ion-list *ngSwitchCase="schedule['name']">
+      <ion-item *ngFor="let period of schedule['schedule']">
+        {{ period.name }}
+        <ion-note item-end>{{ period.startTime }} - {{ period.endTime }}</ion-note>
+        <ion-note item-end>{{ period.runTime }} min</ion-note>
+      </ion-item>
     </ion-list>
   </div>
 </ion-content>
