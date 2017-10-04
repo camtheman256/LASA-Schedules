@@ -228,10 +228,24 @@ export class CurrentSchedulePage {
     this.currentTime = (new Date()).toLocaleTimeString();
     setInterval(() => {
       let dateObj = new Date();
-      this.currentTime = dateObj.toLocaleTimeString("iso8601",{hour12: false});
-
+      this.currentTime = dateObj.toLocaleTimeString([],{hour12: false});
+      this.currentPeriod = this.periodCheck(this.currentTime, "Standard");
     }, 1000);
 
+  }
+
+  public periodCheck(time: string, dayType: string): string {
+    if (dayType === "Standard") {
+      this.schedules[0]["schedule"].forEach(period => {
+        let startTime = (period["startTime"].length === 4 ? "0" : "") + period["startTime"] + ":00";
+        let endTime = (period["endTime"].length === 4 ? "0" : "") + period["endTime"] + ":00";
+        if(time < endTime && time > startTime){
+          console.log(period["name"]);
+          return period["name"];
+        }
+      });
+    }
+    return "";
   }
 
   ionViewDidLoad() {
