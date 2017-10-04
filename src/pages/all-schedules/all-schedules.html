@@ -16,7 +16,7 @@
   </ion-navbar>
   <ion-toolbar padding>
     <ion-segment [(ngModel)]="schedPicker">
-      <ion-segment-button *ngFor="let schedule of schedules" value="{{ schedule.name }}">
+      <ion-segment-button *ngFor="let schedule of dynamicSchedules" value="{{ schedule.name }}">
         {{ schedule.name }}
       </ion-segment-button>
     </ion-segment>
@@ -25,7 +25,7 @@
 
 
 <ion-content padding>
-  <div [ngSwitch]="schedPicker" *ngFor="let schedule of schedules">
+  <div [ngSwitch]="schedPicker" *ngFor="let schedule of dynamicSchedules">
     <ion-list *ngSwitchCase="schedule['name']">
       <ion-item *ngFor="let period of schedule['schedule']">
         {{ period.name }}

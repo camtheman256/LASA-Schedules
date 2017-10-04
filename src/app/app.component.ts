@@ -12,7 +12,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = TabControllerPage;
-  public schedules: Array<Object> = [
+  public readonly schedules: Array<Object> = [
     {
       name: "Standard",
       schedule: [{
@@ -237,5 +237,20 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  subtractTime(timeA: string, timeB: string): string {
+    let timeArray: string[] = timeA.split(":");
+    let timeBrray: string[] = timeB.split(":");
+    let timeAsec: number = Number(timeArray[0])*3600 + Number(timeArray[1])*60 + Number(timeArray[2]);
+    let timeBsec: number = Number(timeBrray[0])*3600 + Number(timeBrray[1])*60 + Number(timeBrray[2]);
+    let subtracted: number = timeAsec - timeBsec;
+    let outA = [Math.floor(subtracted/3600),Math.floor((subtracted % 3600)/60),subtracted % 60];
+    let padA:string[] = [];
+    outA.forEach((timeElement) => {
+      let timeString = timeElement.toString();
+      padA.push(timeString.length < 2 ? "0" + timeString : timeString);
+    });
+    return padA[0] + ":" + padA[1] + ":" + padA[2];
   }
 }

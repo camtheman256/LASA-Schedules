@@ -26,15 +26,20 @@
 
   </ion-card>
 
-  <ion-card>
+  <ion-card color="primary">
 
     <ion-card-header>
       Current Period
     </ion-card-header>
 
     <ion-card-content>
-      <ion-card-title>{{ this.currentPeriod }}</ion-card-title>
+      <ion-card-title>{{ currentPeriod }}</ion-card-title>
+      <button ion-button outline (click)="updateButton()" color="light" *ngIf="currentDay == 4">Switch to {{ otherSchedule }}</button>
+      <p *ngIf="timeRemaining">
+        Time remaining: {{ timeRemaining }}
+      </p>
     </ion-card-content>
+
 
   </ion-card>
 

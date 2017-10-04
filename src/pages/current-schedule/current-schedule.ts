@@ -17,235 +17,49 @@ import { MyApp } from '../../app/app.component';
 })
 
 export class CurrentSchedulePage {
-  public schedules: Array<Object> = [
-    {
-      name: "Standard",
-      schedule: [{
-        name: "1/5",
-        startTime: "8:30",
-        endTime: "10:00",
-        runTime: "90"
-      },
-        {
-          name: "2/6",
-          startTime: "10:05",
-          endTime: "11:40",
-          runTime: "95"
-        },
-        {
-          name: "Lunch",
-          startTime: "11:40",
-          endTime: "12:35",
-          runTime: "55"
-        },
-        {
-          name: "3/7",
-          startTime: "12:40",
-          endTime: "14:10",
-          runTime: "90"
-        },
-        {
-          name: "4/8",
-          startTime: "14:15",
-          endTime: "15:45",
-          runTime: "90"
-        }]
-    },
-    {
-      name: "Late Start",
-      schedule: [
-        {
-          name: "5",
-          startTime: "10:10",
-          endTime: "11:15",
-          runTime: "65"
-        },
-        {
-          name: "6",
-          startTime: "11:20",
-          endTime: "12:30",
-          runTime: "70"
-        },
-        {
-          name: "Lunch",
-          startTime: "12:30",
-          endTime: "13:25",
-          runTime: "55"
-        },
-        {
-          name: "7",
-          startTime: "13:30",
-          endTime: "14:35",
-          runTime: "65"
-        },
-        {
-          name: "8",
-          startTime: "14:40",
-          endTime: "15:45",
-          runTime: "65"
-        }
-      ]
-    },
-    {
-      name: "Pep Rally",
-      schedule: [
-        {
-          name: "1/5",
-          startTime: "8:30",
-          endTime: "9:50",
-          runTime: "80",
-        },
-        {
-          name: "2/6",
-          startTime: "9:55",
-          endTime: "11:20",
-          runTime: "85"
-        },
-        {
-          name: "Lunch",
-          startTime: "11:20",
-          endTime: "12:15",
-          runTime: "55",
-        },
-        {
-          name: "3/7",
-          startTime: "12:20",
-          endTime: "13:40",
-          runTime: "80",
-        },
-        {
-          name: "4/8",
-          startTime: "13:45",
-          endTime: "15:05",
-          runTime: "80"
-        },
-        {
-          name: "Pep Rally",
-          startTime: "15:05",
-          endTime: "15:45",
-          runTime: "40"
-        }
-      ]
-    },
-    {
-      name: "C Day",
-      schedule: [
-        {
-          name: "1",
-          startTime: "8:30",
-          endTime: "9:15",
-          runTime: "45"
-        },
-        {
-          name: "2",
-          startTime: "9:20",
-          endTime: "10:10",
-          runTime: "50",
-        },
-        {
-          name: "3",
-          startTime: "10:15",
-          endTime: "11:00",
-          runTime: "45"
-        },
-        {
-          name: "4",
-          startTime: "11:05",
-          endTime: "11:50",
-          runTime: "45"
-        },
-        {
-          name: "Lunch",
-          startTime: "11:50",
-          endTime: "12:25",
-          runTime: "35"
-        },
-        {
-          name: "5",
-          startTime: "12:30",
-          endTime: "13:15",
-          runTime: "45"
-        },
-        {
-          name: "6",
-          startTime: "13:20",
-          endTime: "14:05",
-          runTime: "45"
-        },
-        {
-          name: "7",
-          startTime: "14:10",
-          endTime: "14:55",
-          runTime: "45"
-        },
-        {
-          name: "8",
-          startTime: "15:00",
-          endTime: "15:45",
-          runTime: "45"
-        },
-      ]
-    },
-    {
-      name: "2 Hour Delay",
-      schedule: [
-        {
-          name: "1/5",
-          startTime: "10:30",
-          endTime: "11:35",
-          runTime: "65"
-        },
-        {
-          name: "2/6",
-          startTime: "11:40",
-          endTime: "12:45",
-          runTime: "65"
-        },
-        {
-          name: "Lunch",
-          startTime: "12:45",
-          endTime: "13:25",
-          runTime: "40"
-        },
-        {
-          name: "3/7",
-          startTime: "13:30",
-          endTime: "14:35",
-          runTime: "65"
-        },
-        {
-          name: "4/8",
-          startTime: "14:40",
-          endTime: "15:45",
-          runTime: "65"
-        },
-      ]
-    }
-  ];
+  public staticSchedules: Object[] = this.myApp.schedules;
   public currentTime: string;
   public currentPeriod: string;
+  public currentSchedule: number;
+  public currentDay: number = (new Date()).getDay();
+  public otherSchedule:string = "Late Start";
+  public timeRemaining: string;
   constructor(public navCtrl: NavController, public navParams: NavParams, public myApp: MyApp) {
-    this.currentTime = (new Date()).toLocaleTimeString();
+    // this.currentTime = "10:00:30"; // manual currentTime
+    this.currentSchedule = 0;
     setInterval(() => {
       let dateObj = new Date();
+      let out: string;
       this.currentTime = dateObj.toLocaleTimeString([],{hour12: false});
-      this.currentPeriod = this.periodCheck(this.currentTime, "Standard");
+      out = this.periodCheck(this.currentTime, this.currentSchedule);
+      this.currentPeriod = out ? out : "No school";
     }, 1000);
 
   }
 
-  public periodCheck(time: string, dayType: string): string {
-    if (dayType === "Standard") {
-      this.schedules[0]["schedule"].forEach(period => {
-        let startTime = (period["startTime"].length === 4 ? "0" : "") + period["startTime"] + ":00";
-        let endTime = (period["endTime"].length === 4 ? "0" : "") + period["endTime"] + ":00";
-        if(time < endTime && time > startTime){
-          console.log(period["name"]);
-          return period["name"];
-        }
-      });
-    }
-    return "";
+  periodCheck(time: string, schedIndex: number): string {
+    let itOut: string;
+    this.staticSchedules[schedIndex]["schedule"].forEach((period, index) => {
+      let startTime = (period["startTime"].length === 4 ? "0" : "") + period["startTime"] + ":00";
+      let endTime = (period["endTime"].length === 4 ? "0" : "") + period["endTime"] + ":00";
+      let next = this.staticSchedules[schedIndex]["schedule"][index + 1] ? this.staticSchedules[schedIndex]["schedule"][index + 1] : null;
+      if(time <= endTime && time > startTime){
+        itOut = period["name"];
+        this.timeRemaining = null;
+      }
+      else if(next != null && time >= endTime && time < next["startTime"]) {
+        itOut = "Between " + period["name"] + " and " + next["name"];
+        this.timeRemaining = this.myApp.subtractTime(next["startTime"] + ":00",this.currentTime);
+      }
+      else {
+        this.timeRemaining = null;
+      }
+    });
+    return itOut;
+  }
+  updateButton() {
+    this.otherSchedule = this.otherSchedule == "Late Start" ? "Normal Schedule" : "Late Start";
+    this.currentSchedule = this.currentSchedule ? 0 : 1;
   }
 
   ionViewDidLoad() {
