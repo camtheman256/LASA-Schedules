@@ -235,15 +235,24 @@ export class CurrentSchedulePage {
   }
 
   public periodCheck(time: string, dayType: string): string {
+    var startTime;
+    var endTime;
     if (dayType === "Standard") {
-      this.schedules[0]["schedule"].forEach(period => {
-        let startTime = (period["startTime"].length === 4 ? "0" : "") + period["startTime"] + ":00";
-        let endTime = (period["endTime"].length === 4 ? "0" : "") + period["endTime"] + ":00";
+      for(let i = 0; i < this.schedules[0]["schedule"].length; i++){
+        let period = this.schedules[0]["schedule"][i];
+        startTime = (period["startTime"].length === 4 ? "0" : "") + period["startTime"] + ":00";
+        endTime = (period["endTime"].length === 4 ? "0" : "") + period["endTime"] + ":00";
         if(time < endTime && time > startTime){
           console.log(period["name"]);
           return period["name"];
         }
-      });
+      }
+    }
+    if(time > "15:45:00"){
+      let hours = parseInt(time.substring(0,2));
+      let mins = parseInt(time.substring(3,5));
+      let secs = parseInt(time.substring(6,8));
+      return "After school. " + (24 - hours + 8) + ":" + (60 - mins + 30) + ":" + (60 - secs) + " left before schools begins.";
     }
     return "";
   }
