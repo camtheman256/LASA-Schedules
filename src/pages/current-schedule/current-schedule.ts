@@ -48,22 +48,24 @@ export class CurrentSchedulePage {
 
   periodCheck(time: string, schedIndex: number): string {
     let itOut: string;
+    let timeLeft: string;
     this.staticSchedules[schedIndex]["schedule"].forEach((period, index) => {
       let startTime = (period["startTime"].length === 4 ? "0" : "") + period["startTime"] + ":00";
       let endTime = (period["endTime"].length === 4 ? "0" : "") + period["endTime"] + ":00";
       let next = this.staticSchedules[schedIndex]["schedule"][index + 1] ? this.staticSchedules[schedIndex]["schedule"][index + 1] : null;
       if(time <= endTime && time > startTime){
         itOut = period["name"];
-        this.timeRemaining = null;
+        timeLeft = this.myApp.subtractTime(endTime + ":00", this.now.toLocaleTimeString([],{hour12: false}));
       }
       else if(next != null && time >= endTime && time < next["startTime"]) {
         itOut = "Between " + period["name"] + " and " + next["name"];
-        this.timeRemaining = this.myApp.subtractTime(next["startTime"] + ":00",this.currentTime);
+        timeLeft = this.myApp.subtractTime(next["startTime"] + ":00",this.now.toLocaleTimeString([],{hour12: false}));
       }
       else {
         this.timeRemaining = null;
       }
     });
+    this.timeRemaining = timeLeft;
     return itOut;
   }
   timeToTomorrow(now:string, schedIndex:number):string {

@@ -34,10 +34,10 @@
 
     <ion-card-content>
       <ion-card-title>{{ currentPeriod }}</ion-card-title>
-      <button ion-button outline (click)="updateButton()" color="light" *ngIf="lateStartOption">Switch to {{ otherSchedule }}</button>
       <p *ngIf="timeRemaining">
         Time remaining: {{ timeRemaining }}
       </p>
+      <button ion-button outline (click)="updateButton()" color="light" *ngIf="lateStartOption">Switch to {{ otherSchedule }}</button>
     </ion-card-content>
 
 
