@@ -27,10 +27,12 @@ export class CurrentSchedulePage {
   public timeRemaining: string;
   public now: Date;
   public twentyfour: boolean;
-  public afterSchoolWednesday: boolean = false;
+  public lateStartOption: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public myApp: MyApp, public storage: Storage) {
     // this.currentTime = "10:00:30"; // manual currentTime
     this.currentSchedule = 0;
+    this.currentDay = (new Date()).getDay();
+    if(this.currentDay == 4) this.lateStartOption = true;
     storage.get("twentyfour").then((val) => {
       this.twentyfour = val;
     });
@@ -65,10 +67,16 @@ export class CurrentSchedulePage {
     return itOut;
   }
   timeToTomorrow(now:string, schedIndex:number):string {
-    if((new Date()).getDay() == 3) this.afterSchoolWednesday = true;
     let startTime = this.staticSchedules[schedIndex]["schedule"][0]["startTime"] + ":00";
-    if(now > startTime) return this.myApp.addTime(this.myApp.subtractTime("23:59:59",now),this.myApp.subtractTime(startTime,"00:00:00"));
-    if(startTime > now) return this.myApp.subtractTime(startTime, now);
+    if(now > startTime) {
+      if(this.currentDay == 3) this.lateStartOption = true;
+      // prevents after school Thursday from changing schedule for Friday's countdown
+      else if(this.currentDay == 4) this.lateStartOption = false;
+      return this.myApp.addTime(this.myApp.subtractTime("23:59:59",now),this.myApp.subtractTime(startTime,"00:00:00"));
+    }
+    else if(startTime > now) {
+      return this.myApp.subtractTime(startTime, now);
+    }
   }
   updateButton() {
     this.otherSchedule = this.otherSchedule == "Late Start" ? "Normal Schedule" : "Late Start";
