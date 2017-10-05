@@ -23,14 +23,18 @@ export class CurrentSchedulePage {
   public currentPeriod: string;
   public currentSchedule: number;
   public currentDay: number = (new Date()).getDay();
-  public otherSchedule:string = "Late Start";
+  public otherSchedule:string;
   public timeRemaining: string;
   public now: Date;
   public twentyfour: boolean;
   public lateStartOption: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public myApp: MyApp, public storage: Storage) {
     // this.currentTime = "10:00:30"; // manual currentTime
-    this.currentSchedule = 0;
+    this.storage.get('currentSchedule').then((val) => {
+      this.currentSchedule = val != null ? val : 0;
+      this.otherSchedule = val == 1 ? "Standard Schedule" : "Late Start";
+    });
+    this.storage.set('currentSchedule', this.currentSchedule);
     this.currentDay = (new Date()).getDay();
     if(this.currentDay == 4) this.lateStartOption = true;
     storage.get("twentyfour").then((val) => {
@@ -81,8 +85,9 @@ export class CurrentSchedulePage {
     }
   }
   updateButton() {
-    this.otherSchedule = this.otherSchedule == "Late Start" ? "Normal Schedule" : "Late Start";
+    this.otherSchedule = this.currentSchedule == 0 ? "Standard Schedule" : "Late Start";
     this.currentSchedule = this.currentSchedule ? 0 : 1;
+    this.storage.set('currentSchedule', this.currentSchedule);
   }
 
   ionViewDidLoad() {

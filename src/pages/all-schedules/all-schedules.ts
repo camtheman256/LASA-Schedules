@@ -6,11 +6,11 @@ import { MyApp } from '../../app/app.component';
 
 
 /**
- * Generated class for the AllSchedulesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+* Generated class for the AllSchedulesPage page.
+*
+* See https://ionicframework.com/docs/components/#navigation for more info on
+* Ionic pages and navigation.
+*/
 
 @IonicPage()
 @Component({
@@ -224,34 +224,38 @@ export class AllSchedulesPage {
       ]
     }
   ];
-  schedPicker: string = this.dynamicSchedules[0]["name"];
+
+  schedPicker: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public popoverCtrl: PopoverController, public storage: Storage, public myApp: MyApp) {
-    storage.get('twentyfour').then((val) => {
-      if(!val) {
-        this.dynamicSchedules.forEach(schedule => {
+      storage.get('currentSchedule').then((val) => {
+        this.schedPicker = val != null ? this.dynamicSchedules[val]["name"] : this.dynamicSchedules[0]["name"];
+      });
+      storage.get('twentyfour').then((val) => {
+        if(val != null && !val) {
+          this.dynamicSchedules.forEach(schedule => {
             schedule["schedule"].forEach(period => {
-                if(Number(period["startTime"].substr(0,2)) > 12) {
-                  let newHour: string = String(Number(period["startTime"].substr(0,2)) - 12);
-                  period["startTime"] = newHour + period["startTime"].substr(2);
-                }
-                if(Number(period["endTime"].substr(0,2)) > 12) {
-                  let newHour2: string = String(Number(period["endTime"].substr(0,2)) - 12);
-                  period["endTime"] = newHour2 + period["endTime"].substr(2);
-                }
+              if(Number(period["startTime"].substr(0,2)) > 12) {
+                let newHour: string = String(Number(period["startTime"].substr(0,2)) - 12);
+                period["startTime"] = newHour + period["startTime"].substr(2);
+              }
+              if(Number(period["endTime"].substr(0,2)) > 12) {
+                let newHour2: string = String(Number(period["endTime"].substr(0,2)) - 12);
+                period["endTime"] = newHour2 + period["endTime"].substr(2);
+              }
             });
-        });
-      }
-    });
-  }
+          });
+        }
+      });
+    }
 
-  popoverUp(myEvent) {
-    let popover = this.popoverCtrl.create(SettingsPopover);
-    popover.present({ ev: myEvent });
-  }
+    popoverUp(myEvent) {
+      let popover = this.popoverCtrl.create(SettingsPopover);
+      popover.present({ ev: myEvent });
+    }
 
-  updateSchedules(twentyfour: boolean) {
-    this.dynamicSchedules.forEach(schedule => {
+    updateSchedules(twentyfour: boolean) {
+      this.dynamicSchedules.forEach(schedule => {
         schedule["schedule"].forEach(period => {
           let addNum: number = twentyfour ? 12 : -12;
           let newHour: string = String(Number(period["startTime"].substr(0,2)) + addNum);
@@ -259,11 +263,11 @@ export class AllSchedulesPage {
           let newHour2: string = String(Number(period["endTime"].substr(0,2)) + addNum);
           period["endTime"] = newHour2 + period["endTime"].substr(2);
         });
-    });
-  }
+      });
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AllSchedulesPage');
-  }
+    ionViewDidLoad() {
+      console.log('ionViewDidLoad AllSchedulesPage');
+    }
 
-}
+  }
