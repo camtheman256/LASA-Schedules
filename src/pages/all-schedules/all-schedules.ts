@@ -250,6 +250,18 @@ export class AllSchedulesPage {
     popover.present({ ev: myEvent });
   }
 
+  updateSchedules(twentyfour: boolean) {
+    this.dynamicSchedules.forEach(schedule => {
+        schedule["schedule"].forEach(period => {
+          let addNum: number = twentyfour ? 12 : -12;
+          let newHour: string = String(Number(period["startTime"].substr(0,2)) + addNum);
+          period["startTime"] = newHour + period["startTime"].substr(2);
+          let newHour2: string = String(Number(period["endTime"].substr(0,2)) + addNum);
+          period["endTime"] = newHour2 + period["endTime"].substr(2);
+        });
+    });
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad AllSchedulesPage');
   }

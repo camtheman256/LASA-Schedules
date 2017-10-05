@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
+import { Storage } from '@ionic/storage';
 
 
 /**
@@ -24,23 +25,21 @@ export class CurrentSchedulePage {
   public currentDay: number = (new Date()).getDay();
   public otherSchedule:string = "Late Start";
   public timeRemaining: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public myApp: MyApp) {
+  public now: Date;
+  public twentyfour: boolean;
+  public afterSchoolWednesday: boolean = false;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public myApp: MyApp, public storage: Storage) {
     // this.currentTime = "10:00:30"; // manual currentTime
     this.currentSchedule = 0;
+    storage.get("twentyfour").then((val) => {
+      this.twentyfour = val;
+    });
     setInterval(() => {
-      let dateObj = new Date();
       let out: string;
-      this.currentTime = dateObj.toLocaleTimeString([],{hour12: false});
-      out = this.periodCheck(this.currentTime, this.currentSchedule);
-      let tomorrow = new Date();
-      tomorrow.setDate(dateObj.getDate() + 1);
-      tomorrow.setHours(parseInt(this.staticSchedules[this.currentSchedule]["schedule"][0]["startTime"].substring(0,2)),parseInt(this.staticSchedules[this.currentSchedule]["schedule"][0]["startTime"].substring(3,5)));
-      let diff = (tomorrow.getTime() - Date.now()) / 1000;
-      let hrs = Math.floor(diff / 3600);
-      diff %= 3600;
-      let mins = Math.floor(diff/60);
-      let secs = dateObj.getSeconds() === 0 ? 0 : 60 - dateObj.getSeconds();
-      this.currentPeriod = out ? out : "No school. " + (hrs.toString().length === 1 ? "0" : "") + (hrs) + ":" + (mins.toString().length === 1 ? "0" : "") + (mins) + ":" + (secs.toString().length === 1 ? "0" : "") + (secs) + " left before schools begins.";
+      this.now = new Date();
+      this.currentTime = this.now.toLocaleTimeString([],{hour12: this.twentyfour != null ? !this.twentyfour : false});
+      out = this.periodCheck(this.now.toLocaleTimeString([],{hour12: false}), this.currentSchedule);
+      this.currentPeriod = out ? out : "No school. " + this.timeToTomorrow(this.now.toLocaleTimeString([], {hour12: false}), this.currentSchedule) + " left before schools begins.";
     }, 500);
 
   }
@@ -64,6 +63,12 @@ export class CurrentSchedulePage {
       }
     });
     return itOut;
+  }
+  timeToTomorrow(now:string, schedIndex:number):string {
+    if((new Date()).getDay() == 3) this.afterSchoolWednesday = true;
+    let startTime = this.staticSchedules[schedIndex]["schedule"][0]["startTime"] + ":00";
+    if(now > startTime) return this.myApp.addTime(this.myApp.subtractTime("23:59:59",now),this.myApp.subtractTime(startTime,"00:00:00"));
+    if(startTime > now) return this.myApp.subtractTime(startTime, now);
   }
   updateButton() {
     this.otherSchedule = this.otherSchedule == "Late Start" ? "Normal Schedule" : "Late Start";
