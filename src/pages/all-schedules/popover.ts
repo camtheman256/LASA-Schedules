@@ -1,7 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { ViewController, ToastController, NavController } from 'ionic-angular';
+import { ViewController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { AllSchedulesPage } from './all-schedules';
 
 
 @Component({
