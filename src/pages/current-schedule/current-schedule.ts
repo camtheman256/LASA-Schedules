@@ -45,7 +45,7 @@ export class CurrentSchedulePage {
       this.now = new Date();
       this.currentTime = this.now.toLocaleTimeString([],{hour12: this.twentyfour != null ? !this.twentyfour : false});
       out = this.periodCheck(this.now.toLocaleTimeString([],{hour12: false}), this.currentSchedule);
-      this.currentPeriod = out ? out : "No school. " + this.timeToTomorrow(this.now.toLocaleTimeString([], {hour12: false}), this.currentSchedule) + " left before schools begins.";
+      this.currentPeriod = out ? out : "No school. " + this.timeToNextSchoolDay(this.now.toLocaleTimeString([], {hour12: false}), this.currentSchedule) + " left before schools begins.";
     }, 500);
 
   }
@@ -72,7 +72,7 @@ export class CurrentSchedulePage {
     this.timeRemaining = timeLeft;
     return itOut;
   }
-  timeToTomorrow(now:string, schedIndex:number):string {
+  timeToNextSchoolDay(now:string, schedIndex:number):string {
     let startTime = this.staticSchedules[schedIndex]["schedule"][0]["startTime"] + ":00";
     if(now > startTime) {
       if(this.currentDay == 3) this.lateStartOption = true;
