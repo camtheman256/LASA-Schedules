@@ -17,7 +17,7 @@ export class MyApp {
       name: "Standard",
       schedule: [{
         name: "1/5",
-        startTime: "8:30",
+        startTime: "08:30",
         endTime: "10:00",
         runTime: "90"
       },
@@ -86,13 +86,13 @@ export class MyApp {
       schedule: [
         {
           name: "1/5",
-          startTime: "8:30",
-          endTime: "9:50",
+          startTime: "08:30",
+          endTime: "09:50",
           runTime: "80",
         },
         {
           name: "2/6",
-          startTime: "9:55",
+          startTime: "09:55",
           endTime: "11:20",
           runTime: "85"
         },
@@ -127,13 +127,13 @@ export class MyApp {
       schedule: [
         {
           name: "1",
-          startTime: "8:30",
-          endTime: "9:15",
+          startTime: "08:30",
+          endTime: "09:15",
           runTime: "45"
         },
         {
           name: "2",
-          startTime: "9:20",
+          startTime: "09:20",
           endTime: "10:10",
           runTime: "50",
         },

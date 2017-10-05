@@ -32,8 +32,16 @@ export class CurrentSchedulePage {
       let out: string;
       this.currentTime = dateObj.toLocaleTimeString([],{hour12: false});
       out = this.periodCheck(this.currentTime, this.currentSchedule);
-      this.currentPeriod = out ? out : "No school";
-    }, 1000);
+      let tomorrow = new Date();
+      tomorrow.setDate(dateObj.getDate() + 1);
+      tomorrow.setHours(parseInt(this.staticSchedules[this.currentSchedule]["schedule"][0]["startTime"].substring(0,2)),parseInt(this.staticSchedules[this.currentSchedule]["schedule"][0]["startTime"].substring(3,5)));
+      let diff = (tomorrow.getTime() - Date.now()) / 1000;
+      let hrs = Math.floor(diff / 3600);
+      diff %= 3600;
+      let mins = Math.floor(diff/60);
+      let secs = dateObj.getSeconds() === 0 ? 0 : 60 - dateObj.getSeconds();
+      this.currentPeriod = out ? out : "No school. " + (hrs.toString().length === 1 ? "0" : "") + (hrs) + ":" + (mins.toString().length === 1 ? "0" : "") + (mins) + ":" + (secs.toString().length === 1 ? "0" : "") + (secs) + " left before schools begins.";
+    }, 500);
 
   }
 
