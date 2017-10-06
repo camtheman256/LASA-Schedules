@@ -45,7 +45,7 @@ export class CurrentSchedulePage {
       this.now = new Date();
       this.currentTime = this.now.toLocaleTimeString([],{hour12: this.twentyfour != null ? !this.twentyfour : false});
       out = this.periodCheck(this.now.toLocaleTimeString([],{hour12: false}), this.currentSchedule);
-      this.currentPeriod = out ? out : "No school. " + this.timeToNextSchoolDay(this.now.toLocaleTimeString([], {hour12: false}), this.currentSchedule) + " left before schools begins.";
+      this.currentPeriod = out ? out : "No school. " + this.timeToNextSchoolDay(this.now.toLocaleTimeString([], {hour12: false}), this.currentSchedule) + " left before school begins.";
     }, 500);
 
   }
@@ -79,6 +79,10 @@ export class CurrentSchedulePage {
       }
     });
     this.timeRemaining = timeLeft;
+    if(this.now.getDay() === 0 || this.now.getDay() === 6) {
+      itOut = "It's the weekend! Enjoy!";
+      this.timeRemaining = null;
+    }
     return itOut;
   }
   timeToNextSchoolDay(now:string, schedIndex:number):string {
