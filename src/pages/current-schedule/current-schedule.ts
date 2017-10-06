@@ -57,12 +57,21 @@ export class CurrentSchedulePage {
       let startTime = (period["startTime"].length === 4 ? "0" : "") + period["startTime"] + ":00";
       let endTime = (period["endTime"].length === 4 ? "0" : "") + period["endTime"] + ":00";
       let next = this.staticSchedules[schedIndex]["schedule"][index + 1] ? this.staticSchedules[schedIndex]["schedule"][index + 1] : null;
+      let nextName: string;
+      let periodName = (this.now.getDay() === 1 || this.now.getDay() === 3) ? period["name"].substring(0,1) : period["name"].substring(2,3);
+      if(this.now.getDay() === 5) periodName = period["name"];
+      if(period["name"] === "Lunch" || period["name"] === "Pep Rally") periodName = period["name"];
+      if(next != null) {
+        nextName = (this.now.getDay() === 1 || this.now.getDay() === 3) ? next["name"].substring(0, 1) : next["name"].substring(2, 3);
+        if (this.now.getDay() === 5) nextName = next["name"];
+        if (next["name"] === "Lunch" || next["name"] === "Pep Rally") nextName = next["name"];
+      }
       if(time <= endTime && time > startTime){
-        itOut = period["name"];
+        itOut = periodName;
         timeLeft = this.myApp.subtractTime(endTime + ":00", this.now.toLocaleTimeString([],{hour12: false}));
       }
       else if(next != null && time >= endTime && time < next["startTime"]) {
-        itOut = "Between " + period["name"] + " and " + next["name"];
+        itOut = "Between " + periodName + " and " + nextName;
         timeLeft = this.myApp.subtractTime(next["startTime"] + ":00",this.now.toLocaleTimeString([],{hour12: false}));
       }
       else {
