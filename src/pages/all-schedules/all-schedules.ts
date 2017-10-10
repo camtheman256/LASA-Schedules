@@ -24,7 +24,7 @@ export class AllSchedulesPage {
       name: "Standard",
       schedule: [{
         name: "1/5",
-        startTime: "8:30",
+        startTime: "08:30",
         endTime: "10:00",
         runTime: "90"
       },
@@ -93,13 +93,13 @@ export class AllSchedulesPage {
       schedule: [
         {
           name: "1/5",
-          startTime: "8:30",
-          endTime: "9:50",
+          startTime: "08:30",
+          endTime: "09:50",
           runTime: "80",
         },
         {
           name: "2/6",
-          startTime: "9:55",
+          startTime: "09:55",
           endTime: "11:20",
           runTime: "85"
         },
@@ -134,13 +134,13 @@ export class AllSchedulesPage {
       schedule: [
         {
           name: "1",
-          startTime: "8:30",
-          endTime: "9:15",
+          startTime: "08:30",
+          endTime: "09:15",
           runTime: "45"
         },
         {
           name: "2",
-          startTime: "9:20",
+          startTime: "09:20",
           endTime: "10:10",
           runTime: "50",
         },
@@ -222,14 +222,56 @@ export class AllSchedulesPage {
           runTime: "65"
         },
       ]
-    }
+    },
+    {
+      name: "PSAT Schedule",
+      special: true,
+      schedule: [
+        {
+          name: "PSAT Exam",
+          startTime: "08:30",
+          endTime: "12:45",
+          runTime: "255"
+        },
+        {
+          name: "Lunch",
+          startTime: "12:45",
+          endTime: "13:25",
+          runTime: "40"
+        },
+        {
+          name: "1",
+          startTime: "13:30",
+          endTime: "14:00",
+          runTime: "30"
+        },
+        {
+          name: "2",
+          startTime: "14:05",
+          endTime: "14:35",
+          runTime: "30"
+        },
+        {
+          name: "3",
+          startTime: "14:40",
+          endTime: "15:10",
+          runTime: "30"
+        },
+        {
+          name: "4",
+          startTime: "15:15",
+          endTime: "15:45",
+          runTime: "30"
+        },
+      ]
+    },
   ];
 
   schedPicker: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public popoverCtrl: PopoverController, public storage: Storage, public myApp: MyApp) {
       storage.get('currentSchedule').then((val) => {
-        this.schedPicker = val != null ? this.dynamicSchedules[val]["name"] : this.dynamicSchedules[0]["name"];
+        this.schedPicker = val != null ? this.myApp.schedules[val]["name"] : this.dynamicSchedules[0]["name"];
       });
       storage.get('twentyfour').then((val) => {
         if(val != null && !val) {

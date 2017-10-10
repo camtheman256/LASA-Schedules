@@ -33,14 +33,21 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-card-title>{{ currentPeriod }}</ion-card-title>
+      <ion-card-title class="period">{{ currentPeriod }}</ion-card-title>
+      <h2 class="endTime" *ngIf="periodEndTime">
+        Ends at {{ periodEndTime }}
+      </h2>
       <p *ngIf="timeRemaining">
         Time remaining: {{ timeRemaining }}
       </p>
       <button ion-button outline (click)="updateButton()" color="light" *ngIf="lateStartOption">Switch to {{ otherSchedule }}</button>
     </ion-card-content>
-
-
+  </ion-card>
+  <ion-card>
+    <ion-card-header><ion-icon name="information-circle" clear small></ion-icon>&ensp;LASA Schedules Web App</ion-card-header>
+    <ion-card-content>
+      While this app is being developed, you can add this as an app to your home screen, using the share menu on iOS or the Chrome menu on Android.
+    </ion-card-content>
   </ion-card>
 
 </ion-content>

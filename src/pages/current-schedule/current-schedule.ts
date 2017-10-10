@@ -23,15 +23,20 @@ export class CurrentSchedulePage {
   public currentPeriod: string;
   public currentSchedule: number;
   public currentDay: number = (new Date()).getDay();
+  public periodEndTime: string;
   public otherSchedule:string;
   public timeRemaining: string;
   public now: Date;
   public twentyfour: boolean;
   public lateStartOption: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public myApp: MyApp, public storage: Storage) {
-    // this.currentTime = "10:00:30"; // manual currentTime
+    this.now = new Date();
+    // Special day checking and assignment goes here
+    if(this.now.getDate() == 11 && this.now.getMonth() == 9) { // check if today is the PSAT, could remove later
+      this.currentSchedule = 5; // 5th schedule is PSAT, special key is true
+    }
     this.storage.get('currentSchedule').then((val) => {
-      this.currentSchedule = val != null ? val : 0;
+      if(this.currentSchedule == null) this.currentSchedule = val != null && !this.myApp.schedules[val]["special"] ? val : 0;
       this.otherSchedule = val == 1 ? "Standard Schedule" : "Late Start";
     });
     this.storage.set('currentSchedule', this.currentSchedule);
@@ -44,15 +49,17 @@ export class CurrentSchedulePage {
       let out: string;
       this.now = new Date();
       this.currentTime = this.now.toLocaleTimeString([],{hour12: this.twentyfour != null ? !this.twentyfour : false});
-      out = this.periodCheck(this.now.toLocaleTimeString([],{hour12: false}), this.currentSchedule);
+      out = this.periodCheck(this.currentSchedule);
       this.currentPeriod = out ? out : "After school. " + ((this.now.getDay() === 5) ? "Happy Friday!" : this.timeToNextSchoolDay(this.now.toLocaleTimeString([], {hour12: false}), this.currentSchedule) + " left before school begins.");
     }, 500);
 
   }
 
-  periodCheck(time: string, schedIndex: number): string {
+  periodCheck(schedIndex: number): string {
+    let time: string = this.now.toLocaleTimeString([],{hour12: false});
     let itOut: string;
     let timeLeft: string;
+    let endOut: string;
     this.staticSchedules[schedIndex]["schedule"].forEach((period, index) => {
       let startTime = (period["startTime"].length === 4 ? "0" : "") + period["startTime"] + ":00";
       let endTime = (period["endTime"].length === 4 ? "0" : "") + period["endTime"] + ":00";
@@ -65,13 +72,14 @@ export class CurrentSchedulePage {
       }
       if(next != null) {
         nextName = next["name"];
-        if(nextName.includes("/") {
+        if(nextName.includes("/")) {
           if(this.now.getDay() === 1 || this.now.getDay() === 3) nextName = next["name"].substring(0,1);
           else if(this.now.getDay() === 2 || this.now.getDay() === 4) nextName = next["name"].substring(2);
         }
       }
-      if(time <= endTime && time > startTime){
+      if(time < endTime && time >= startTime){
         itOut = periodName;
+        endOut = endTime;
         timeLeft = this.myApp.subtractTime(endTime + ":00", this.now.toLocaleTimeString([],{hour12: false}));
       }
       else if(next != null && time >= endTime && time < next["startTime"]) {
@@ -82,6 +90,7 @@ export class CurrentSchedulePage {
         this.timeRemaining = null;
       }
     });
+    this.periodEndTime = endOut ? endOut.substr(0,5) : null;
     this.timeRemaining = timeLeft;
     if(this.now.getDay() === 0 || this.now.getDay() === 6) {
       itOut = "It's the weekend! Enjoy!";
