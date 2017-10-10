@@ -59,12 +59,16 @@ export class CurrentSchedulePage {
       let next = this.staticSchedules[schedIndex]["schedule"][index + 1] ? this.staticSchedules[schedIndex]["schedule"][index + 1] : null;
       let nextName: string;
       let periodName = period["name"];
-      if(this.now.getDay() === 1 || this.now.getDay() === 3) periodName = period["name"].substring(0,1);
-      else if(this.now.getDay() === 2 || this.now.getDay() === 4) periodName = period["name"].substring(2);
+      if(periodName.includes("/")) {
+        if(this.now.getDay() === 1 || this.now.getDay() === 3) periodName = period["name"].substring(0,1);
+        else if(this.now.getDay() === 2 || this.now.getDay() === 4) periodName = period["name"].substring(2);
+      }
       if(next != null) {
         nextName = next["name"];
-        if(this.now.getDay() === 1 || this.now.getDay() === 3) nextName = next["name"].substring(0,1);
-        else if(this.now.getDay() === 2 || this.now.getDay() === 4) nextName = next["name"].substring(2);
+        if(nextName.includes("/") {
+          if(this.now.getDay() === 1 || this.now.getDay() === 3) nextName = next["name"].substring(0,1);
+          else if(this.now.getDay() === 2 || this.now.getDay() === 4) nextName = next["name"].substring(2);
+        }
       }
       if(time <= endTime && time > startTime){
         itOut = periodName;
