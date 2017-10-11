@@ -35,6 +35,10 @@ export class CurrentSchedulePage {
     if(this.now.getDate() == 11 && this.now.getMonth() == 9) { // check if today is the PSAT, could remove later
       this.currentSchedule = 5; // 5th schedule is PSAT, special key is true
     }
+    // this is sketchy and bad, but it'll save me a shit ton of time for Friday so why not I guess
+    if(this.now.getDate() == 13 && this.now.getMonth() == 9) {
+      this.currentSchedule = 2;
+    }
     this.storage.get('currentSchedule').then((val) => {
       if(this.currentSchedule == null) this.currentSchedule = val != null && !this.myApp.schedules[val]["special"] ? val : 0;
       this.otherSchedule = val == 1 ? "Standard Schedule" : "Late Start";

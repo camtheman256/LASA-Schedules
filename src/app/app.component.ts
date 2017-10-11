@@ -83,6 +83,7 @@ export class MyApp {
     },
     {
       name: "Pep Rally",
+      special: true,
       schedule: [
         {
           name: "1/5",
