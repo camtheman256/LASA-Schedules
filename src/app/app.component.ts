@@ -217,48 +217,6 @@ export class MyApp {
         },
       ]
     },
-    {
-      name: "PSAT Schedule",
-      special: true,
-      schedule: [
-        {
-          name: "PSAT Exam",
-          startTime: "08:30",
-          endTime: "12:45",
-          runTime: "255"
-        },
-        {
-          name: "Lunch",
-          startTime: "12:45",
-          endTime: "13:25",
-          runTime: "40"
-        },
-        {
-          name: "1",
-          startTime: "13:30",
-          endTime: "14:00",
-          runTime: "30"
-        },
-        {
-          name: "2",
-          startTime: "14:05",
-          endTime: "14:35",
-          runTime: "30"
-        },
-        {
-          name: "3",
-          startTime: "14:40",
-          endTime: "15:10",
-          runTime: "30"
-        },
-        {
-          name: "4",
-          startTime: "15:15",
-          endTime: "15:45",
-          runTime: "30"
-        },
-      ]
-    },
   ];
   pages: Array<{title: string, component: any}>;
 

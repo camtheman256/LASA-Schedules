@@ -32,12 +32,8 @@ export class CurrentSchedulePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public myApp: MyApp, public storage: Storage) {
     this.now = new Date();
     // Special day checking and assignment goes here
-    if(this.now.getDate() == 11 && this.now.getMonth() == 9) { // check if today is the PSAT, could remove later
-      this.currentSchedule = 5; // 5th schedule is PSAT, special key is true
-    }
-    // this is sketchy and bad, but it'll save me a shit ton of time for Friday so why not I guess
-    if(this.now.getDate() == 13 && this.now.getMonth() == 9) {
-      this.currentSchedule = 2;
+    if(this.now.getDate() == 13 && this.now.getMonth() == 11) {
+      this.currentSchedule = 3;
     }
     this.storage.get('currentSchedule').then((val) => {
       if(this.currentSchedule == null) this.currentSchedule = val != null && !this.myApp.schedules[val]["special"] ? val : 0;
