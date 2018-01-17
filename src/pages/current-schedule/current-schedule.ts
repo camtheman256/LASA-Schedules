@@ -32,8 +32,8 @@ export class CurrentSchedulePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public myApp: MyApp, public storage: Storage) {
     this.now = new Date();
     // Special day checking and assignment goes here
-    if(this.now.getDate() == 13 && this.now.getMonth() == 11) {
-      this.currentSchedule = 3;
+    if((this.now.getDate() == 17 || this.now.getDate() == 16) && this.now.getMonth() == 0) {
+      this.currentSchedule = 4;
     }
     this.storage.get('currentSchedule').then((val) => {
       if(this.currentSchedule == null) this.currentSchedule = val != null && !this.myApp.schedules[val]["special"] ? val : 0;
