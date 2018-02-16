@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Schedule Assembler</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.js" integrity="sha256-gR6ZCR2s8m5B2pOtRyDld7PWjHRqxSfLBMWYNs2TxOw=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand">ScheduleAssembly</a>
+  </nav>
+  <div class="container mt-3">
+    <div class="container mb-3" id="scheduleContainer">
+      
+    </div>
+    <button class="btn btn-primary" id="newSched"><i class="fa fa-plus"></i> Add a new schedule</button>
+  </div>
+</body>
+<script>
+$("#newSched").click(function() {
+  var new_card = $("<div/>").addClass("card my-1");
+  new_card.append($("<div/>").addClass("card-header").text("Untitled Schedule"));
+  var card_body = $("<div/>").addClass("card-body");
+  new_card.append(card_body);
+  var form_title_id = guid();
+  var title_label = $("<label/>").attr("for", form_title_id).text("Schedule name").addClass("mr-3 font-weight-bold");
+  var title_box = $("<input/>").attr("id", form_title_id).attr("type","text").addClass("form-control sched-title");
+  var title_form = $("<div/>").addClass("form-inline").append(title_label, title_box);
+  card_body.append(title_form);
+  $("#scheduleContainer").append(new_card);
+});
+$("#scheduleContainer").on('click', '.card-header', function(e) {
+  $(e.target).siblings(".card-body").toggleClass("collapse");
+});
+$("#scheduleContainer").on('input', '.sched-title', function(e) {
+  $(e.target).parents(".card-body").siblings(".card-header").text($(e.target).val() ? $(e.target).val() : "Untitled Schedule");
+});
+</script>
+<script>
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
+</script>
+</html>
