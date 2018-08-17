@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { TabControllerPage } from '../pages/tab-controller/tab-controller';
-import { SettingsPopover } from '../pages/all-schedules/popover';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -14,7 +13,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
-    SettingsPopover,
     TabControllerPage,
   ],
   imports: [
@@ -27,7 +25,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     TabControllerPage,
-    SettingsPopover
   ],
   providers: [
     StatusBar,
