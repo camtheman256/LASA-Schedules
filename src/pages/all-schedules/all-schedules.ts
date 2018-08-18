@@ -20,6 +20,7 @@ export class AllSchedulesPage {
   schedPicker: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public myApp: MyApp) {
+      // when page loads, uses the currently active schedule to pick the tab.
       this.schedPicker = this.myApp.currentSchedule ? this.schedulesObj[this.myApp.currentSchedule]["name"] : "Standard";
     }
 

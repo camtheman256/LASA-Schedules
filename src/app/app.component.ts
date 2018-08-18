@@ -25,6 +25,8 @@ export class MyApp {
     this.initializeApp();
     http.get('/assets/schedule.json').subscribe((res: Object[]) => this.schedules = res);
     http.get('/assets/school-year.json').subscribe((res: Object) => this.holidays = res);
+
+    // pull 24 hour preference from DB
     storage.get("twentyfour").then((val) => {
       this.twentyfour = val;
     });
@@ -46,9 +48,13 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
   
+  // takes in a Date object, strips it of time data, and determines what schedule should apply
   public determineSchedule(day: Date): number {
+    // strip date of time information
     day = this.stripTime(day);
     let return_please: boolean = false;
+    
+    // check if the date is outside of the school year
     if(day < new Date(this.holidays["not_before"]) || day > new Date(this.holidays["not_after"])) {
       this.currentSchedule = null;
       this.scheduleReason = "School not in session";
@@ -66,6 +72,7 @@ export class MyApp {
         }
     });
     if(return_please) return 0;
+
     // special schedule checking
     for (let i = 2; i < this.schedules.length; i++) {
       this.schedules[i]["dates"].forEach(date => {
@@ -87,20 +94,25 @@ export class MyApp {
       this.scheduleReason = "Weekend";
       return 0;
     }
+
+    // otherwise, default to standard schedule
     this.currentSchedule = 0;
     return 1;
   }
 
   dateApplies(test_date: Date, stored_date: string | Array<string>): boolean {
+    // check if we have a date range
     if(stored_date instanceof Array) {
       return test_date >= new Date(stored_date[0]) && test_date <= new Date(stored_date[1]);
     }
+    // otherwise just check if the dates are equal
     else {
       return test_date.getTime() === new Date(stored_date).getTime();
     }
   }
   
   stripTime(day: Date): Date {
+    // strip date of time information, by setting all times to 0
     day = new Date(day.getTime());
     day.setHours(0);
     day.setMinutes(0);
