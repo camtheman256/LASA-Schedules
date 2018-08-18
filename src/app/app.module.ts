@@ -5,11 +5,12 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
-import { TabControllerPage } from '../pages/tab-controller/tab-controller';
+import { TabControllerPageModule } from '../pages/tab-controller/tab-controller.module';
 import { CustomPipes } from './custompipes.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { TabControllerPage } from "../pages/tab-controller/tab-controller";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HttpClientModule,
-    CustomPipes
+    CustomPipes,
+    TabControllerPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

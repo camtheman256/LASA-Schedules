@@ -28,7 +28,7 @@ export class CurrentSchedulePage {
     // update period every half second
     setInterval(() => {
       this.now = new Date();
-      this.currentTime = this.now.toLocaleTimeString([],{hour12: !this.myApp.twentyfour});
+      this.currentTime = this.now.toLocaleTimeString([],{hour12: false});
       this.periodCheck();
     }, 500);
 
