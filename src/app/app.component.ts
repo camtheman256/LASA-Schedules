@@ -16,6 +16,7 @@ export class MyApp {
   rootPage: any = TabControllerPage;
   public schedules: Object[] = [];
   public currentSchedule: number = 0;
+  public scheduleReason: string = "";
   public twentyfour: boolean = false;
   public holidays: Object = {};
   pages: Array<{title: string, component: any}>;
@@ -43,6 +44,69 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+  
+  public determineSchedule(day: Date): number {
+    day = this.stripTime(day);
+    let return_please: boolean = false;
+    if(day < new Date(this.holidays["not_before"]) || day > new Date(this.holidays["not_after"])) {
+      this.currentSchedule = null;
+      this.scheduleReason = "School not in session";
+      if(day > new Date(this.holidays["not_after"])) {
+        return -1;
+      }
+      return 0;
+    }
+    // holiday checking
+    this.holidays["holidays"].forEach(holiday => {
+        if(this.dateApplies(day, holiday)) {
+          this.currentSchedule = null;
+          this.scheduleReason = "School Holiday";
+          return_please = true;
+        }
+    });
+    if(return_please) return 0;
+    // special schedule checking
+    for (let i = 2; i < this.schedules.length; i++) {
+      this.schedules[i]["dates"].forEach(date => {
+        if(this.dateApplies(day, date)) {
+          this.currentSchedule = i;
+          return_please = true;
+        }
+      });
+    }
+    if(return_please) return 3;
+    // Wednesday checking
+    if(day.getDay() == 3) {
+      this.currentSchedule = 1;
+      return 2;
+    }
+    // weekend checking
+    if(day.getDay() == 6 || day.getDay() == 0) {
+      this.currentSchedule = null;
+      this.scheduleReason = "Weekend";
+      return 0;
+    }
+    this.currentSchedule = 0;
+    return 1;
+  }
+
+  dateApplies(test_date: Date, stored_date: string | Array<string>): boolean {
+    if(stored_date instanceof Array) {
+      return test_date >= new Date(stored_date[0]) && test_date <= new Date(stored_date[1]);
+    }
+    else {
+      return test_date.getTime() === new Date(stored_date).getTime();
+    }
+  }
+  
+  stripTime(day: Date): Date {
+    day = new Date(day.getTime());
+    day.setHours(0);
+    day.setMinutes(0);
+    day.setSeconds(0);
+    day.setMilliseconds(0);
+    return day;
   }
 
   subtractTime(timeA: string, timeB: string): string {
