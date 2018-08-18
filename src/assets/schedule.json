@@ -75,7 +75,7 @@
   {
     "name": "Late Start/Delay",
     "combinedAB": true,
-    "dates": [""] //TODO!
+    "dates": ["9/20/18", "10/25/18", "11/29/18", "1/31/19", "3/7/19", "4/4/19", "5/2/19"],
     "schedule": [
       {
         "name": "1/5",
@@ -112,7 +112,7 @@
   {
     "name": "Pep Rally",
     "combinedAB": true,
-    "dates": [], //TODO!
+    "dates": ["9/14/18", "9/21/18", "10/19/18", "11/1/18"],
     "schedule": [
       {
         "name": "1/5",
