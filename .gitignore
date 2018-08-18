@@ -6,6 +6,7 @@
 *.log
 *.tmp
 *.firebaserc
+.firebase
 *.tmp.*
 log.txt
 *.sublime-project

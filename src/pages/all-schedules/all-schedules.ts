@@ -20,7 +20,7 @@ export class AllSchedulesPage {
   schedPicker: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public myApp: MyApp) {
-      this.schedPicker = this.schedulesObj[this.myApp.currentSchedule]["name"];
+      this.schedPicker = this.myApp.currentSchedule ? this.schedulesObj[this.myApp.currentSchedule]["name"] : "Standard";
     }
 
 
