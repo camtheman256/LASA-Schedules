@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { TabControllerPage } from '../pages/tab-controller/tab-controller';
+import { CustomPipes } from './custompipes.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -13,13 +14,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
-    TabControllerPage,
+    TabControllerPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HttpClientModule,
+    CustomPipes
   ],
   bootstrap: [IonicApp],
   entryComponents: [

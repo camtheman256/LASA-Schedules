@@ -21,7 +21,7 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-card-title>{{ currentTime }}</ion-card-title>
+      <ion-card-title>{{ currentTime | time_format }}</ion-card-title>
     </ion-card-content>
 
   </ion-card>
@@ -35,7 +35,7 @@
     <ion-card-content>
       <ion-card-title class="period">{{ currentPeriod }}</ion-card-title>
       <h2 class="endTime" *ngIf="periodEndTime">
-        Ends at {{ periodEndTime }}
+        Ends at {{ periodEndTime | time_format }}
       </h2>
       <p *ngIf="timeRemaining">
         Time remaining: {{ timeRemaining }}
