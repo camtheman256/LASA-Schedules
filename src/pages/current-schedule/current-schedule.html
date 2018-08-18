@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <ion-card>
+  <ion-card (tap)="toggleTimeFormat($event)">
 
     <ion-card-header>
       Current Time
@@ -40,13 +40,12 @@
       <p *ngIf="timeRemaining">
         Time remaining: {{ timeRemaining }}
       </p>
-      <button ion-button outline (click)="updateButton()" color="light" *ngIf="lateStartOption">Switch to {{ otherSchedule }}</button>
     </ion-card-content>
   </ion-card>
   <ion-card>
     <ion-card-header><ion-icon name="information-circle" clear small></ion-icon>&ensp;LASA Schedules Web App</ion-card-header>
     <ion-card-content>
-      While this app is being developed, you can add this as an app to your home screen, using the share menu on iOS or the Chrome menu on Android.
+      You can add this website to your home screen to use it as a standalone app. Also, tap the time to toggle between 12 and 24 hours.
     </ion-card-content>
   </ion-card>
 
