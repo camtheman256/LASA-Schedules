@@ -3,6 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 
 import { TabControllerPage } from '../pages/tab-controller/tab-controller';
 
@@ -14,11 +15,18 @@ export class MyApp {
 
   rootPage: any = TabControllerPage;
   public schedules: Object[] = [];
+  public currentSchedule: number = 0;
+  public twentyfour: boolean = false;
+  public holidays: Object = {};
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, http: HttpClient) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, http: HttpClient, storage: Storage) {
     this.initializeApp();
     http.get('/assets/schedule.json').subscribe((res: Object[]) => this.schedules = res);
+    http.get('/assets/school-year.json').subscribe((res: Object) => this.holidays = res);
+    storage.get("twentyfour").then((val) => {
+      this.twentyfour = val;
+    });
   }
 
   initializeApp() {

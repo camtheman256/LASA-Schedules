@@ -21,36 +21,24 @@ export class CurrentSchedulePage {
   public staticSchedules: Object[] = this.myApp.schedules;
   public currentTime: string;
   public currentPeriod: string;
-  public currentSchedule: number;
   public currentDay: number = (new Date()).getDay();
   public periodEndTime: string;
   public otherSchedule:string;
   public timeRemaining: string;
   public now: Date;
-  public twentyfour: boolean;
   public lateStartOption: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public myApp: MyApp, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public myApp: MyApp) {
     this.now = new Date();
-    // Special day checking and assignment goes here
-    if(this.now.getDate() == 23 && this.now.getMonth() == 4) {
-      this.currentSchedule = 3;
-    }
-    this.storage.get('currentSchedule').then((val) => {
-      if(this.currentSchedule == null) this.currentSchedule = val != null && !this.myApp.schedules[val]["special"] ? val : 0;
-      this.otherSchedule = val == 1 ? "Standard Schedule" : "Late Start";
-    });
-    this.storage.set('currentSchedule', this.currentSchedule);
+    //TODO: moving current schedule selection to myApp, going to use a separate JSON for schedule control, incl late starts, which means no more late start button
+    // May still need a delay button for surprise delays, but implement later plz, move all storage to myApp, I think.
     this.currentDay = (new Date()).getDay();
     if(this.currentDay == 4) this.lateStartOption = true;
-    storage.get("twentyfour").then((val) => {
-      this.twentyfour = val;
-    });
     setInterval(() => {
       let out: string;
       this.now = new Date();
-      this.currentTime = this.now.toLocaleTimeString([],{hour12: this.twentyfour != null ? !this.twentyfour : false});
-      out = this.periodCheck(this.currentSchedule);
-      this.currentPeriod = out ? out : "After school. " + ((this.now.getDay() === 5) ? "Happy Friday!" : this.timeToNextSchoolDay(this.now.toLocaleTimeString([], {hour12: false}), this.currentSchedule) + " left before school begins.");
+      this.currentTime = this.now.toLocaleTimeString([],{hour12: false});
+      out = this.periodCheck(this.myApp.currentSchedule);
+      this.currentPeriod = out ? out : "After school. " + ((this.now.getDay() === 5) ? "Happy Friday!" : this.timeToNextSchoolDay(this.now.toLocaleTimeString([], {hour12: false}), this.myApp.currentSchedule) + " left before school begins.");
     }, 500);
 
   }
@@ -111,9 +99,9 @@ export class CurrentSchedulePage {
     }
   }
   updateButton() {
-    this.otherSchedule = this.currentSchedule == 0 ? "Standard Schedule" : "Late Start";
-    this.currentSchedule = this.currentSchedule ? 0 : 1;
-    this.storage.set('currentSchedule', this.currentSchedule);
+    this.otherSchedule = this.myApp.currentSchedule == 0 ? "Standard Schedule" : "Late Start";
+    this.myApp.currentSchedule = this.myApp.currentSchedule ? 0 : 1;
+    this.storage.set('currentSchedule', this.myApp.currentSchedule);
   }
 
   ionViewDidLoad() {

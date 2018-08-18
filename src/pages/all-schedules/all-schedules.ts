@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { MyApp } from '../../app/app.component';
 
@@ -17,13 +17,11 @@ import { MyApp } from '../../app/app.component';
   templateUrl: 'all-schedules.html',
 })
 export class AllSchedulesPage {
-  // collapse these in your editor if they get obnoxious
-
   private readonly schedulesObj: Object[] = this.myApp.schedules;
   schedPicker: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public popoverCtrl: PopoverController, public storage: Storage, public myApp: MyApp) {
-      
+    public myApp: MyApp) {
+      this.schedPicker = this.schedulesObj[this.myApp.currentSchedule]["name"];
     }
 
 

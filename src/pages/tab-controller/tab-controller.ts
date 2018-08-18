@@ -17,7 +17,6 @@ export class TabControllerPage {
 
   currentScheduleRoot = 'CurrentSchedulePage'
   allSchedulesRoot = 'AllSchedulesPage'
-  remindersRoot = 'RemindersPage'
 
 
   constructor(public navCtrl: NavController) {}
