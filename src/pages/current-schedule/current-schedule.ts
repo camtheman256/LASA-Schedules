@@ -78,6 +78,14 @@ export class CurrentSchedulePage {
         if(this.now.getDay() === 1 || this.now.getDay() === 3) periodName = period["name"].substring(0,1);
         else if(this.now.getDay() === 2 || this.now.getDay() === 4) periodName = period["name"].substring(2);
       }
+      // split next period name if we need to use it for passing periods
+      if(next != null) {
+      nextName = next["name"];
+      if(combinedAB && nextName.indexOf("/") != -1) {
+        if(this.now.getDay() === 1 || this.now.getDay() === 3) nextName = next["name"].substring(0,1);
+        else if(this.now.getDay() === 2 || this.now.getDay() === 4) nextName = next["name"].substring(2);
+      }
+    }
       
       // check whether we're in the period being tested
       if(time < endTime && time >= startTime){
@@ -85,15 +93,6 @@ export class CurrentSchedulePage {
         endOut = endTime;
         timeLeft = this.myApp.subtractTime(endTime + ":00", time);
         return true;
-      }
-      
-      // split next period name if we need to use it for passing periods
-      if(next != null) {
-        nextName = next["name"];
-        if(combinedAB && nextName.indexOf("/") != -1) {
-          if(this.now.getDay() === 1 || this.now.getDay() === 3) nextName = next["name"].substring(0,1);
-          else if(this.now.getDay() === 2 || this.now.getDay() === 4) nextName = next["name"].substring(2);
-        }
       }
       
       // checking for between periods

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.lasa2019.schedules" version="2.1-beta_production" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.lasa2019.schedules" version="2.1.1-beta_production" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>LASA Schedules</name>
     <description>An app to keep track of the changing LASA High School schedule.</description>
     <author email="cameron@lasa2019.com" href="http://lasa2019.com/">Cameron Kleiman and Alex Loia</author>
