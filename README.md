@@ -1,5 +1,4 @@
 # [LASA Schedules 2.0](https://schedules.lasa2019.com)
----
 
 Developed by [Cameron Kleiman](https://camk.co) for [LASA2019](https://lasa2019.com). A live version exists at https://schedules.lasa2019.com.
 
