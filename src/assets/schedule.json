@@ -154,13 +154,61 @@
   },
   {
     "name": "C Day",
-    "dates": ["9/24/18", "10/10/18", "12/14/18", "5/20/19"],
+    "dates": ["10/10/18", "12/14/18", "5/20/19"],
     "schedule": [
       {
-        "name": "Not updated",
+        "name": "1",
         "startTime": "08:15",
+        "endTime": "09:00",
+        "runTime": "45"
+      },
+      {
+        "name": "2",
+        "startTime": "09:05",
+        "endTime": "09:50",
+        "runTime": "45"
+      },
+      {
+        "name": "3",
+        "startTime": "09:55",
+        "endTime": "10:40",
+        "runTime": "45"
+      },
+      {
+        "name": "4",
+        "startTime": "10:45",
+        "endTime": "11:30",
+        "runTime": "45"
+      },
+      {
+        "name": "Lunch",
+        "startTime": "11:30",
+        "endTime": "12:25",
+        "runTime": "55"
+      },
+      {
+        "name": "5",
+        "startTime": "12:30",
+        "endTime": "13:15",
+        "runTime": "45"
+      },
+      {
+        "name": "6",
+        "startTime": "13:20",
+        "endTime": "14:05",
+        "runTime": "45"
+      },
+      {
+        "name": "7",
+        "startTime": "14:10",
+        "endTime": "14:55",
+        "runTime": "45"
+      },
+      {
+        "name": "8",
+        "startTime": "15:00",
         "endTime": "15:45",
-        "runTime": "450"
+        "runTime": "45"
       }
     ]
   }
