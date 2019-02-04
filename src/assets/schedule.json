@@ -211,5 +211,47 @@
         "runTime": "45"
       }
     ]
+  },
+  {
+    "name": "Cultural Day",
+    "dates": ["2/15/19"],
+    "schedule": [
+      {
+        "name": "1",
+        "startTime": "08:15",
+        "endTime": "09:05",
+        "runTime": "50"
+      },
+      {
+        "name": "2",
+        "startTime": "09:10",
+        "endTime": "10:00",
+        "runTime": "50"
+      },
+      {
+        "name": "3",
+        "startTime": "10:05",
+        "endTime": "10:55",
+        "runTime": "50"
+      },
+      {
+        "name": "4",
+        "startTime": "11:00",
+        "endTime": "11:50",
+        "runTime": "50"
+      },
+      {
+        "name": "Lunch",
+        "startTime": "11:50",
+        "endTime": "12:40",
+        "runTime": "50"
+      },
+      {
+        "name": "Cultural Day",
+        "startTime": "12:45",
+        "endTime": "15:45",
+        "runTime": "180"
+      }
+    ]
   }
 ]
