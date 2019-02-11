@@ -23,8 +23,8 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, http: HttpClient, storage: Storage) {
     this.initializeApp();
-    http.get('/assets/schedule.json').subscribe((res: Object[]) => this.schedules = res);
-    http.get('/assets/school-year.json').subscribe((res: Object) => this.holidays = res);
+    http.get('https://schedules.lasa2019.com/assets/schedule.json').subscribe((res: Object[]) => this.schedules = res);
+    http.get('https://schedules.lasa2019.com/assets/school-year.json').subscribe((res: Object) => this.holidays = res);
 
     // pull 24 hour preference from DB
     storage.get("twentyfour").then((val) => {
