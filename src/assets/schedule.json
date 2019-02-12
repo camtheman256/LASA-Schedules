@@ -112,7 +112,7 @@
   {
     "name": "Pep Rally",
     "combinedAB": true,
-    "dates": ["9/14/18", "9/21/18", "10/19/18", "11/1/18"],
+    "dates": ["9/14/18", "9/21/18", "10/19/18", "11/1/18", "2/12/19"],
     "schedule": [
       {
         "name": "1/5",
@@ -213,7 +213,7 @@
     ]
   },
   {
-    "name": "Cultural Day",
+    "name": "Culture Day",
     "dates": ["2/15/19"],
     "schedule": [
       {
