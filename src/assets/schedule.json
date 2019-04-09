@@ -35,6 +35,7 @@
   },
   {
     "name": "Wednesdays",
+    "dates": ["4/12/19"],
     "schedule": [{
       "name": "1",
       "startTime": "08:15",
