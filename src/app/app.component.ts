@@ -47,13 +47,13 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
-  
+
   // takes in a Date object, strips it of time data, and determines what schedule should apply
   public determineSchedule(day: Date): number {
     // strip date of time information
     day = this.stripTime(day);
     let return_please: boolean = false;
-    
+
     // check if the date is outside of the school year
     if(day < new Date(this.holidays["not_before"]) || day > new Date(this.holidays["not_after"])) {
       this.currentSchedule = null;
@@ -84,7 +84,7 @@ export class MyApp {
     }
     if(return_please) return 3;
     // Wednesday checking
-    if(day.getDay() == 3) {
+    if(day.getDay() == 3 || day.getDay() == 2) {
       this.currentSchedule = 1;
       return 2;
     }
@@ -110,7 +110,7 @@ export class MyApp {
       return test_date.getTime() === new Date(stored_date).getTime();
     }
   }
-  
+
   stripTime(day: Date): Date {
     // strip date of time information, by setting all times to 0
     day = new Date(day.getTime());

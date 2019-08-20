@@ -35,9 +35,10 @@
     },
     {
       "name": "Wednesdays",
+      "combinedAB": true,
       "dates": ["4/12/19"],
       "schedule": [{
-        "name": "1",
+        "name": "1/5",
         "startTime": "08:15",
         "endTime": "09:40",
         "runTime": "85"
@@ -49,7 +50,7 @@
         "runTime": "45"
       },
       {
-        "name": "2",
+        "name": "2/6",
         "startTime": "10:35",
         "endTime": "12:00",
         "runTime": "85"
@@ -61,13 +62,13 @@
         "runTime": "45"
       },
       {
-        "name": "3",
+        "name": "3/7",
         "startTime": "12:50",
         "endTime": "14:15",
         "runTime": "85"
       },
       {
-        "name": "4",
+        "name": "4/8",
         "startTime": "14:20",
         "endTime": "15:45",
         "runTime": "85"
@@ -76,7 +77,7 @@
       {
         "name": "Late Start/Delay",
         "combinedAB": true,
-        "dates": ["9/20/18", "10/25/18", "11/29/18", "1/31/19", "3/7/19", "4/4/19", "5/2/19"],
+        "dates": ["9/12/19", "10/3/19", "12/5/19", "1/30/20", "3/5/20", "4/2/20", "4/30/20"],
         "schedule": [
           {
             "name": "1/5",
@@ -113,7 +114,7 @@
       {
         "name": "Pep Rally",
         "combinedAB": true,
-        "dates": ["9/14/18", "9/21/18", "10/19/18", "11/1/18"],
+        "dates": ["8/30/19", "10/4/19", "10/11/19", "10/25/19", "11/11/19"],
         "schedule": [
           {
             "name": "1/5",
@@ -212,35 +213,5 @@
             "runTime": "45"
           }
         ]
-      },
-      {
-        "name": "5/8",
-        "dates": ["5/8/19"],
-        "schedule": [
-          {
-            "name": "Testing",
-            "startTime": "08:15",
-            "endTime": "12:15",
-            "runTime": "240"
-          },
-          {
-            "name": "Lunch",
-            "startTime": "12:15",
-            "endTime": "13:15",
-            "runTime": "60"
-          },
-          {
-            "name": "3",
-            "startTime": "13:20",
-            "endTime": "14:30",
-            "runTime": "70"
-          },
-          {
-            "name": "4",
-            "startTime": "14:35",
-            "endTime": "15:45",
-            "runTime": "70"
-          }
-      ]
-    }
+      }
   ]
