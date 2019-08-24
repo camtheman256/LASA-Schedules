@@ -36,7 +36,6 @@
     {
       "name": "Tues/Wed",
       "combinedAB": true,
-      "dates": ["4/12/19"],
       "schedule": [{
         "name": "1/5",
         "startTime": "08:15",
